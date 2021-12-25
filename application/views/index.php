@@ -3,6 +3,7 @@
 <html lang="en">
 <?php include(__DIR__.'/partials/header.php'); ?>
 <?php include(__DIR__.'/partials/navbar.php'); ?>
+<a class="btn btn-outline-primary" href="<?=base_url('albums/logout')?>">Sign Out</a>
 
 <body>
 	<?php 

@@ -12,13 +12,51 @@ class Albums extends CI_Controller {
       }
 
     public function index(){
-    	$data = array (
+    	if($this->session->userdata('login')=='1'){
+            
+            $data = array (
                 'albums'    => $this->Mgallery->GetAlbumList(),
                 'title'    => 'Albums'
             );
-        $this->load->view('index', $data);
+            $this->load->view('index', $data);
+			
+		}else{
+			$this->session->set_flashdata('belum_login', '2');
+			redirect('albums\login','refresh');
+		}
       }
-
+      public function login()
+      {
+          $this->load->view('header');
+          $this->load->view('login');
+          $this->load->view('footer');
+          if (isset($_POST['login'])){
+              $this->_login();
+          }
+      }
+      private function _login(){
+          $username =  $this->input->post('username');
+          $password =  $this->input->post('password');
+          
+          //ambil data dari tableuser dengan username sesuai variabel username.
+          $user = $this->db->get_where('tbl_user', ['username' => $username])->row_array(); 
+  
+          //cek user ada atau tidak, jika ada disimpan didalam session
+          if($user){
+              if(password_verify($password, $user['password'])){
+                  $this->session->set_userdata('login','1');
+                  $this->session->set_userdata('username', $user['username']);
+                  redirect('','refresh');
+              }
+          } else{
+              $this->session->set_flashdata('salah_login', '1'); //session mungkin error
+              redirect('albums/login','refresh');
+          }
+      }
+      public function logout(){
+          session_destroy();
+          redirect('albums/login','refresh');
+      }
 	public function album($param='null',$id='null') {
 
         if( $this->input->post('process') == 'true' ) {
