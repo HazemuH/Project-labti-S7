@@ -1,4 +1,4 @@
-# CI_mySQL_jQuery-File-Upload_Gallery
+# Proyek labti s7
 A Gallery CRUD with MySQL Database in CodeIgniter 3.1.5 using blueimp's jQuery File Upload.
 
 Gallery offers to add album with a Album title and Featured image. Pictures can be uploaded to each album using blueimp's jQuery File Upload plugin.
