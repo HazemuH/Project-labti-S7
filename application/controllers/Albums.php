@@ -40,7 +40,7 @@ class Albums extends CI_Controller {
           
           //ambil data dari tableuser dengan username sesuai variabel username.
           $user = $this->db->get_where('tbl_user', ['username' => $username])->row_array(); 
-  
+            
           //cek user ada atau tidak, jika ada disimpan didalam session
           if($user){
               if(password_verify($password, $user['password'])){
